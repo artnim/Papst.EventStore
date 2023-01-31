@@ -154,7 +154,8 @@ internal class CosmosEventStore : IEventStore
       {
         DocumentId = null,
         StreamId = streamId,
-        IsSuccess = true
+        IsSuccess = true,
+        Version = lastItem.Version
       };
     }
   }
@@ -198,7 +199,7 @@ internal class CosmosEventStore : IEventStore
     else if (result.StatusCode == System.Net.HttpStatusCode.Conflict)
     {
       _logger.LogWarning(
-          "Inserting {Documet} with {Version} to {Stream} failed because of Version Conflict",
+          "Inserting {Document} with {Version} to {Stream} failed because of Version Conflict",
           documentEntity.DocumentId,
           documentEntity.Version,
           streamId
